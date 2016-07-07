@@ -1,0 +1,6 @@
+<h1>The index page. Enter the Twitter username here and search</h1>
+<form action="/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Fetch" />
+</form>
