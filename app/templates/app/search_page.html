@@ -1,5 +1,5 @@
-<h1>The index page. Enter the Twitter username here and search</h1>
-<form action="/" method="post">
+<p><u>Enter the Twitter username here and search</u></p>
+<form action="/" method="get">
     {% csrf_token %}
     <div>
         {{ form.username.label }}
