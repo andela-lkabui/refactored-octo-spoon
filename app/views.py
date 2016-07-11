@@ -13,9 +13,12 @@ def fetch_user(request):
             name = form.cleaned_data.get('username')
             twitter = Twitter(name)
             recent_tweets = twitter.save_tweets()
+            frequency = twitter.word_frequency(recent_tweets)
+            # import ipdb; ipdb.set_trace()
             context = {
                 'tweets': recent_tweets,
-                'username': name
+                'username': name,
+                'frequency': frequency
             }
             return render(request, 'app/results.html', context)
     return render(request, 'app/search.html', {'form': UserForm()})
