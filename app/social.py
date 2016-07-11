@@ -3,6 +3,7 @@ import base64
 import urllib
 import urllib2
 import json
+import re
 
 
 class Twitter(object):
@@ -91,3 +92,38 @@ class Twitter(object):
         # stripped = re.sub('\s'+word+'\s', ' ', stripped)
         # splitted = re.split('[ \s]+', stripped)
 
+    def word_frequency(self, words):
+        """
+        Splits the `words` list into words and calculates the number of times
+        each word has been used.
+        """
+        stop_words = [
+            'a', 'an', 'and', 'as', 'at', 'but', 'by', 'each', 'every',
+            'for', 'from', 'her', 'his', 'in', 'into', 'its', 'like', 'my',
+            'no', 'nor', 'of', 'off', 'on', 'onto', 'or', 'our', 'out',
+            'outside', 'over', 'past', 'since', 'so', 'some', 'than', 'that',
+            'the', 'their', 'this', 'to', 'up', 'with'
+        ]
+        # create one continuous string from the words list
+        words = ' '.join(words)
+        # Replace the `RT @someone:` pattern with empty strings
+        # import ipdb; ipdb.set_trace()
+        words = re.sub('RT?\s@([a-zA-Z0-9_]+): ', '', words)
+        # Replace any tweeted hyperlinks with empty strings
+        words = re.sub('http[s]?://[a-zA-Z0-9/.]+', '', words)
+        # remove the quotes, newlines, hashes, @symbol etc that may be present
+        # in tweets
+        words = re.sub(r'[\n"#@]', '', words)
+        # factor out stop words when calculating word frequency
+        for term in stop_words:
+            words = re.sub('\s' + term + '\s', ' ', words)
+        # split the words per white space encountered
+        words = re.split('[ \s]+', words)
+        # calculate the frequency
+        frequency = {}
+        for word in words:
+            if word not in frequency:
+                frequency[word] = 1
+            else:
+                frequency[word] += 1
+        return frequency
