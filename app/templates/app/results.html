@@ -1,7 +1,28 @@
 <p><u>{{ username }}'s recent tweets</u></p>
+<a href="/">Back to Search</a>
 <ul>
-{% for tweet in tweets %}
-    <li>{{ tweet }}</li>
-{% endfor %}
+    {% for tweet in tweets %}
+        <li>{{ tweet }}</li>
+    {% endfor %}
 </ul>
+
+<hr>
+<p>Word frequency for {{ username }}'s tweets.</p>
+<table>
+    <tr>
+        <th>Word</th>
+        <td>Frequency Count</td>
+    </tr>
+    {% for key, value in frequency.items %}
+    <tr>
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<hr>
+
+<hr>
+<a href="/">Back to Search</a>
+<hr>
 
