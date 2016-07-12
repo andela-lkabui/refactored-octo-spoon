@@ -65,7 +65,9 @@ class Twitter(object):
         values = {
             'screen_name': self.screen_name,
             'contributor_details': False,
-            'trim_user': True
+            'trim_user': True,
+            # 'include_rts': False,
+            'count': 100
         }
         data = urllib.urlencode(values)
         full_url = '{0}{1}'.format(url, data)
